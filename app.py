@@ -3,10 +3,10 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 app = Flask(__name__)
 app.secret_key = 'tu_clave_secreta'  # Necesario para usar sesiones
 
-# Datos simulados de usuarios (esto normalmente estaría en una base de datos)
+# Datos (esto normalmente estaría en una base de datos)
 users = {
-    "usuario1": "password1",
-    "usuario2": "password2"
+    "LIMBERT69": "LIMBERT69",
+    "CRISPAJERO": "CRISPAJERO"
 }
 
 # Ruta para la página de inicio de sesión
@@ -19,19 +19,19 @@ def login():
         # Validar usuario y contraseña
         if username in users and users[username] == password:
             session['username'] = username  # Guardar usuario en sesión
-            return redirect(url_for('welcome'))  # Redirigir a la página de bienvenida
+            return redirect(url_for('bienvenido'))  # Redirigir a la página de bienvenida
         else:
-            flash('Nombre de usuario o contraseña incorrectos.')  # Mostrar error
+            flash('Nombre de usuario o contraseña incorrectos......')
             return redirect(url_for('login'))
 
     return render_template('login.html')
 
 # Ruta para la página de bienvenida personalizada
-@app.route('/welcome')
-def welcome():
+@app.route('/bienvenido')
+def bienvenido():
     if 'username' in session:
         username = session['username']  # Obtener el nombre de usuario de la sesión
-        return render_template('welcome.html', username=username)
+        return render_template('bienvenido.html', username=username)
     else:
         return redirect(url_for('login'))  # Si no está autenticado, redirigir al login
 
